@@ -3,6 +3,7 @@ const app=express();
 
 const port=8000;
 
+app.use('/',require('./routes'));// it tells that use this given path router
 app.listen(port,function(err)
 {
     if(err)
