@@ -3,10 +3,11 @@ const app=express();
 const cookieParser=require('cookie-parser');
 
 const port=8000;
+const db=require('./config/mongoose');
 
-
+app.use(express.urlencoded());
 app.use('/',require('./routes'));// it tells that use this given path router
-app.use(express.urlencoded);//to read from post rquest
+//to read from post rquest
 
 app.use(cookieParser);// cookieParser use for cookie
 app.set('view engine','ejs');// it tells that we would use ejs file

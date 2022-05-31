@@ -1,3 +1,5 @@
+const Users=require('../models/user');//user model import
+
 module.exports.profile=function(req,res)
 {
     return res.end('<h1> hey here is a profile</h1');
@@ -22,8 +24,28 @@ module.exports.signUp=function(req,res)
 
 //create sign up
 module.exports.create=function(req,res)
-{
-    //TODO
+{   //console.log(req.body);
+    if(req.body.password!=req.body.confirm_password)
+    {
+        return res.redirect('back');
+    }
+    Users.findOne({email:req.body.email},function(err,user)
+    {
+        if(err)
+        {
+            console.log("error in finding user");
+            return;
+        }
+        if(!user)
+        {
+            Users.create(req.body,function(err,user)
+            {
+                console.log("Error in creating user");
+                return;
+            });
+            return res.redirect('/users/sign-in');//this is an url in which we will redirect
+        }
+    })
 }
 
 
