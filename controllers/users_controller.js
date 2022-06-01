@@ -2,12 +2,19 @@ const Users=require('../models/user');//user model import
 
 module.exports.profile=function(req,res)
 {
-    return res.end('<h1> hey here is a profile</h1');
+    return res.render('user_profile',
+    {
+        title:"Profile"
+    });
 }
 
 //for user sign in controller
 module.exports.signIn=function(req,res)
-{
+{   if(req.isAuthenticated())
+    {
+        return res.redirect('/users/profile');
+    }
+
     return res.render('user_sign_in',
     {
         title:"user Sign In"
@@ -16,6 +23,10 @@ module.exports.signIn=function(req,res)
 //for user sign up controller
 module.exports.signUp=function(req,res)
 {
+    if(req.isAuthenticated())
+    {
+        return res.redirect('/users/profile');
+    }
     return res.render('user_sign_up',
     {
         title:"user Sign Up"
@@ -53,4 +64,5 @@ module.exports.create=function(req,res)
 module.exports.createSession=function(req,res)
 {
     //TODO
+    return res.redirect('/');
 }
