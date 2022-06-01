@@ -15,4 +15,4 @@ const postSchema=new mongoose.Schema(
     {timestamps:true});//it store information about created at updated at
 
     const post=mongoose.model('post',postSchema);
-    modules.exports=post;
+    module.exports=post;
