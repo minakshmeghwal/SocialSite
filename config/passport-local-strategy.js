@@ -4,20 +4,21 @@ const User=require('../models/user');
 
 //need to tell passport to use local authentication
 passport.use(new LocalStrategy({
-    usernameField:'email'
-},function(email,password,done)
+    usernameField:'email',
+    passReqToCallback:true
+},function(req,email,password,done)
 {
     User.findOne({email:email},function(err,user)
     {
         if(err)
         {
-            console.log("error in finding user");
-            return;
+            req.flash('error',err);
+            return done(err);
         }
 
         if(!user || user.password!=password)
         {
-            console.log("error user not found");
+            req.flash('error','Invalid username/password')
             return done(null,false);
         }
         return done(null,user);
