@@ -1,4 +1,5 @@
 const post=require('../models/post');
+const User=require('../models/user');
 // through this it can access this method outside the file
 module.exports.home=function(req,res)
 {   //console.log(req.cookie);
@@ -20,10 +21,14 @@ module.exports.home=function(req,res)
         populate:{
             path:'user'}
         }).exec(function(err,posts)
+        {   
+            User.find({},function(err,users)
         {
-        return res.render('home',{
-                    title:"Home",
-                    posts:posts
+            return res.render('home',{
+                title:"Home",
+                posts:posts,
+                all_users:users
+        })
         });
     
 })

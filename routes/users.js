@@ -3,8 +3,8 @@ const router=express.Router();
 const passport=require('passport');
 const profile_user=require("../controllers/users_controller");
 
-//for user profile router
-router.get('/profile',profile_user.profile);
+//for user profile router and profiel page only access when checkauthentication send true
+router.get('/profile/:id',passport.checkAuthentication,profile_user.profile);
 
 //for user sign in router
 router.get('/sign-in',profile_user.signIn);
@@ -19,5 +19,8 @@ router.post('/create',profile_user.create);
 router.post('/create-session',passport.authenticate('local',{
     failureRedirect:'/users/sign-in'
 }),profile_user.createSession);
+
+
+
 
 module.exports=router;
