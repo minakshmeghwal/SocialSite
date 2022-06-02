@@ -8,6 +8,8 @@ const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
 const MongoStore=require('connect-mongo');
+const flash=require('connect-flash');
+const customMware=require('./config/middleware');
 app.use(express.urlencoded());
 app.use(cookieParser());// cookieParser use for cookie
 
@@ -43,6 +45,8 @@ app.use(session({
 //this is basically to say use apssport for authentication and this always come after session
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+app.use(customMware.setflash);
 app.use(passport.setAuthenticatedUser);//it is middleware whenever req is coming this fxn would be called
 
 app.use('/',require('./routes'));// it tells that use this given path router

@@ -1,7 +1,7 @@
 const post=require('../models/post');
 const User=require('../models/user');
 // through this it can access this method outside the file
-module.exports.home=function(req,res)
+module.exports.home= async function(req,res) // async shows this is asychronas function
 {   //console.log(req.cookie);
 
 
@@ -14,22 +14,26 @@ module.exports.home=function(req,res)
     // })
 
     //changing in code of above
-
-    post.find({}).populate('user')
+try{
+    
+    // await shows wait untill this statement execute
+   let posts=await post.find({}).populate('user')
     .populate({
         path:'comments',
         populate:{
             path:'user'}
-        }).exec(function(err,posts)
-        {   
-            User.find({},function(err,users)
-        {
-            return res.render('home',{
-                title:"Home",
-                posts:posts,
-                all_users:users
-        })
         });
-    
-})
+    let users= await User.find({})
+        
+    return res.render('home',{
+            title:"Home",
+            posts:posts,
+            all_users:users
+    })
+}
+catch(err)
+{
+    console.log("Error is ",err);
+    return;
+}
 }

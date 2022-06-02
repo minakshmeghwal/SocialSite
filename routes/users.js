@@ -16,6 +16,7 @@ router.get('/sign-up',profile_user.signUp);
 //router for creating an user
 router.post('/create',profile_user.create);
 
+router.get('/sign-out',profile_user.destroySession);
 //router for create session
 router.post('/create-session',passport.authenticate('local',{
     failureRedirect:'/users/sign-in'
