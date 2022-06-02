@@ -6,6 +6,7 @@ const profile_user=require("../controllers/users_controller");
 //for user profile router and profiel page only access when checkauthentication send true
 router.get('/profile/:id',passport.checkAuthentication,profile_user.profile);
 
+router.post('/update/:id',passport.checkAuthentication,profile_user.update);
 //for user sign in router
 router.get('/sign-in',profile_user.signIn);
 

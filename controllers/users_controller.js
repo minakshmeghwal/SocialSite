@@ -11,6 +11,19 @@ module.exports.profile=function(req,res)
     });
     
 }
+module.exports.update=function(req,res)
+{
+    if(req.user.id == req.params.id)
+    {
+        Users.findByIdAndUpdate(req.params.id,req.body,function(err,user)
+        {
+            return res.redirect('back');
+        })
+    }
+    else{
+        return res.status(404).Send('Unautherized');
+    }
+}
 
 //for user sign in controller
 module.exports.signIn=function(req,res)
