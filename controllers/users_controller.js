@@ -1,5 +1,6 @@
 const Users=require('../models/user');//user model import
-
+const fs=require('fs');
+const path=require('path');
 module.exports.profile=function(req,res)
 {       Users.findById(req.params.id,function(err,user)
     {
@@ -11,16 +12,49 @@ module.exports.profile=function(req,res)
     });
     
 }
-module.exports.update=function(req,res)
+module.exports.update=async function(req,res)
 {
     if(req.user.id == req.params.id)
     {
-        Users.findByIdAndUpdate(req.params.id,req.body,function(err,user)
+        try{
+            let user=await Users.findById(req.params.id);
+            Users.uploadedAvatar(req,res,function(err)//we use this method becoz we cant use req.body directly becoz we declare enctype in form
+            {
+                if(err)
+                {
+                    console.log('*****multer error');
+                }
+                user.name=req.body.name;
+                user.email=req.body.email;
+                if(req.file)
+                {       
+                // if(user.avatar)
+                // {   //it delete previous file from uploads/users/avatars
+                //     fs.unlinkSync(path.join(__dirname,'..',user.avatar));
+                // }
+                
+                //this is saving the uploaded file in avatar feild
+                    user.avatar=Users.avatarPath+'/'+req.file.filename;
+                }
+                user.save();
+                return res.redirect('back');
+                console.log(req.file);
+            });
+        }
+        catch(err)
         {
+            req.flash('error','unauthorized');
             return res.redirect('back');
-        })
+        }
+
+
+        // Users.findByIdAndUpdate(req.params.id,req.body,function(err,user)
+        // {
+        //     return res.redirect('back');
+        // })
     }
     else{
+        req.flash('error','unauthorized');
         return res.status(404).Send('Unautherized');
     }
 }

@@ -12,7 +12,7 @@ const flash=require('connect-flash');
 const customMware=require('./config/middleware');
 app.use(express.urlencoded());
 app.use(cookieParser());// cookieParser use for cookie
-
+app.use('/uploads',express.static(__dirname+'/uploads'));
 //to read from post rquest
 
 
