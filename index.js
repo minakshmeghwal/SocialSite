@@ -10,6 +10,7 @@ const passportLocal=require('./config/passport-local-strategy');
 const MongoStore=require('connect-mongo');
 const flash=require('connect-flash');
 const customMware=require('./config/middleware');
+const passportJWT=require('./config/passport-jwt-strategy');
 app.use(express.urlencoded());
 app.use(cookieParser());// cookieParser use for cookie
 app.use('/uploads',express.static(__dirname+'/uploads'));
