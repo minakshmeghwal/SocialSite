@@ -2,19 +2,35 @@
 module.exports.chatSockets=function(socketServer)
 {
     
-    //this is important line
+    //this is important line it stops the polling error
     let io = require("socket.io")(socketServer, {
-    cors: {
-      origin: "http://localhost:8000",
-      methods: ["GET", "POST"]
-    }
-  });
-  //let io=require('socket.io')(socketServer);
-      //console.log("hey",socketServer);
-      //io.set('origins', 'http://localhost:80');
+      cors: {
+        origin: "http://localhost:8000",
+        methods: ["GET", "POST"]
+      }
+        });
     io.sockets.on('connection',function(socket){
         console.log('new connection received',socket.id);
 
-    })
+        socket.on('disconnect', function(){
+          console.log('socket disconnected!');
+      });
+
+      
+      socket.on('join_room', function(data){
+          console.log('joining request rec.', data);
+
+          socket.join(data.chatroom);
+
+          io.in(data.chatroom).emit('user_joined', data);
+      });
+
+      // CHANGE :: detect send_message and broadcast to everyone in the room
+      socket.on('send_message', function(data){
+        console.log("msgs is ",data);
+          io.in(data.chatroom).emit('receive_message', data);
+      });
+
+  });
 
 }
