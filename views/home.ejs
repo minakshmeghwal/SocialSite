@@ -6,12 +6,15 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.1/noty.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script> -->
+
         <!-- this one -->
         <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
         
         
     </head>
     <body>
+    <div>
         <h1>hey this is home</h1>
         <ul>
             <% if(locals.user){%>
@@ -61,7 +64,11 @@
             <%}%>
 
         </section>
+        <%- include('_chat_box')-%>
+    </div>
     
+    
+   
     <script >
         <%if(flash.success && flash.success.length>0){%>
             new Noty(
@@ -164,16 +171,16 @@
         }
 
 
-
-
-
-
-
-
-
-
         createPost();
 
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
+    <script src="../assets/js/chat_engine.js">
+        </script>
+    <%if(locals.user){%>
+     <script>
+        new ChatEngine('user-chat-box','<%=locals.user._id%>')
+    </script>
+           <%}%>
     </body>
 </html>

@@ -11,6 +11,14 @@ const MongoStore=require('connect-mongo');
 const flash=require('connect-flash');
 const customMware=require('./config/middleware');
 const passportJWT=require('./config/passport-jwt-strategy');
+
+
+//setup the chat server to be used with socket.io
+const chatServer=require('http').Server(app);
+const chatSockets=require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('char server is listening on 5000');
+app.use("/assets", express.static('./assets/'));
 app.use(express.urlencoded());
 app.use(cookieParser());// cookieParser use for cookie
 app.use('/uploads',express.static(__dirname+'/uploads'));
