@@ -18,10 +18,11 @@ const chatServer=require('http').Server(app);
 const chatSockets=require('./config/chat_sockets').chatSockets(chatServer);
 chatServer.listen(5000);
 console.log('char server is listening on 5000');
-app.use("/assets", express.static('./assets/'));
+app.use("/assets", express.static(__dirname+'/assets'));
 app.use(express.urlencoded());
 app.use(cookieParser());// cookieParser use for cookie
 app.use('/uploads',express.static(__dirname+'/uploads'));
+
 //to read from post rquest
 
 
@@ -54,6 +55,7 @@ app.use(session({
 //this is basically to say use apssport for authentication and this always come after session
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use(flash());
 app.use(customMware.setflash);
 app.use(passport.setAuthenticatedUser);//it is middleware whenever req is coming this fxn would be called
