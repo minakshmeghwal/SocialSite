@@ -3,6 +3,7 @@
         <title>
             <%= title %>
         </title>
+        <link rel="stylesheet" type="text/css"  href="../assets//css//sign_up.css"> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.1/noty.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -15,7 +16,6 @@
     </head>
     <body>
     <div>
-        <h1>hey this is home</h1>
         <ul>
             <% if(locals.user){%>
                 <li>
@@ -25,23 +25,22 @@
                     <a href="/users/sign-out">Sign-Out</a>
                 </li>
             <%}else {%>
-                <li>
+                <li id="signin">
                     <a href="/users/sign-in">Sign-In</a>
                 </li>
-                <li>
+                <li id="signup">
                     <a href="/users/sign-up">Sign-Up</a>
                 </li>
               <%}%>  
         </ul>
         <section id="feed-posts">
-            <h4>Post</h4>
             <% if(locals.user){%>
             <form action="/posts/create" id="new-post-form" method="post">
                 <textarea name="content" row="3" col="30" placeholder="type here" required></textarea><br>
                 <input type="submit" value="post">
 
             </form>
-            <% } %>
+            
             <div id="posts-list-container">
                 
                 <ul>
@@ -52,6 +51,7 @@
                 </ul>
                 
             </div>
+            
 
         </section>
         <section id="user_friend">
@@ -65,6 +65,7 @@
 
         </section>
         <%- include('_chat_box')-%>
+        <% } %>
     </div>
     
     
@@ -93,86 +94,8 @@
             ).show();
             <%}%>
     </script>
-    <script >
-        console.log("hello");
-        // method for submit the new form data to ajax
-        let createPost=function(){
-            let newPostForm=$('#new-post-form');
-            newPostForm.submit(function(e)
-            {
-                e.preventDefault();
-                $.ajax({
-                    type:'post',
-                    url:'/posts/create',
-                    data:newPostForm.serialize(),
-                    success:function(data)
-                    {
-                         console.log(data);//posts-list-container>ul it is id of post and in that id <ul>
-                            let newPost=newPostDom(data.data.post);
-                            $('#posts-list-container>ul').prepend(newPost);
-                            deletePost($(' .delete-post-button',newPost));// here we call deletepost who have object of that link which would be delete
-                    },
-                    error:function(error)
-                    {
-                        console.log(error.responseText)
-                    }
-                    
-                });
-            });
-        }
-        //method to create a post in dom
-        let newPostDom=function(post)
-        {
-            return $(`<li id="post-${post._id}">
-            <p>
-                    <small>
-                            <a class="delete-post-button" href="/posts/destroy/${post._id}">X</a>
-                    </small>
-                ${post.content}
-                <br>
-                <small>
-                ${post.user.name}  
-                </small>
-            </p>
-            <div class="post-comment">
-                
-
-        <form action="/comment/create" method="post">
-
-            <input type="text" name="content" placeholder="comment here">
-            <input type="hidden" name="post" value="${post._id}">
-            <input type="submit" value="Add comment">
-        </form>
-        <div class="post-comment-list">
-            <ul id="post-comment-${post._id}">
-            </ul>
-
-        </div>
-    </div>
-    </li>`)
-        }
-
-        //method to delete a post from dom
-        let deletePost=function(deleteLink)//we get here deleteLink from above class we give post-delete-button
-        {
-            $(deleteLink).click(function(e)
-            {
-                e.prevenDefault();//than we prevent the behaviour of ths naturally and manually deleted
-                $.ajax({
-                    type:'get',
-                    url:$(deleteLink).prop('href'),
-                    success:function(data){
-                        $(`#post-${data.data.post_id}`).remove();//we get id here from post_controller data where we checkajax request
-                    },error:function(error){
-                        console.log(error.responseText);
-                    }
-                })
-            })
-        }
-
-
-        createPost();
-
+    <script src="../assets/js/home_posts.js">
+        
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
     <script src="../assets/js/chat_engine.js">

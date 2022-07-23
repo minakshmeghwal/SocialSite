@@ -1,0 +1,90 @@
+
+.outer-div{
+    position:absolute;
+    
+}
+#form-data
+{
+    background-color: orange;
+}
+#user-image
+{
+    
+    height:10vh;
+    width:10vw;
+    border-radius: 50%;
+    margin-left: 1rem;
+}
+#heading1{
+    
+    padding-left: 8rem;
+    padding-top: 4rem;
+}
+#sign-up
+{
+    height:100px;
+    width:100px;
+    margin-left:13rem;
+}
+
+#name1{
+        height:7%;
+        width:70%;
+        margin-left:15%;
+        margin-top:10%;
+        border:2px black solid;
+        display: inline-block;
+        margin-bottom:2rem
+}
+#password1{
+    height:7%;
+        width:70%;
+    margin-bottom:2rem;
+    margin-left:15%;
+    border:2px black solid;
+    display: inline-block
+}
+
+#form-data{
+    height:70vh;
+    width:30vw;
+    margin-left:35%;
+    margin-top:-80vh;
+    background-color: lightgray;
+    position:relative;
+    min-width: 30vw;
+    
+
+}
+
+#button1{
+    display: inline-block;
+    height:7%;
+    width:70%;
+    margin-left:15%;
+    background-color: blue;
+    color:aliceblue
+    
+}
+#image1
+{
+    margin : -2rem;
+    height:100vh;
+    width:100vw;
+}
+@media (max-width:200px)
+{
+    #user-image
+    {
+        /* margin-left:-2rem !important; */
+        height:200rem !important;
+        width:2rem !important;
+    }
+    #name1
+    {
+        height:700px;
+    }
+}
+    
+
+    

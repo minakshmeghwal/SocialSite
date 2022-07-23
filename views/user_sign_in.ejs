@@ -3,18 +3,41 @@
         <title>
             <%= title %>
         </title>
+        <meta charset="utf-8">
+	     <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+        <link rel="stylesheet" type="text/css"  href="../assets//css//sign_in.css"> 
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.1/noty.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     </head>
     <body>
-        <h1>Sign In</h1>
-        <form action="/users/create-session" method="post">
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <input type="password" name="password" placeholder="Enter your password" required>
-            <input type="submit" value="Sign In">
-        </form>
+        <div class="outer-div">
+            <img src="../assets/images/social-media-icons-hanging-from-blue-string.jpg" id="image1">
+        <div id="form-data">
+            <!-- <div id="user-image">
+            <img src="../assets/images/user.png" >
+            </div> -->
+            <div id="heading1">
+                <!-- <h3 id="head1" > Login to your Account</h3></div> -->
+                <img id="user-image" src="../assets/images/user.png">
+            </div>
+            <div >
+            <form action="/users/create-session" method="post">
+            
+            <input type="email" name="email" id="name1"  placeholder="Enter your email" required>
+            <input type="password" name="password" id="password1" placeholder="Enter your password" required>
+            <br>
+            <input type="submit" value="Sign In" id="button1">
+           </form>
+           <p id="sign-up">
+            <a href="/users/sign-up">Sign-Up</a>
+           </p>
+        </div>
+        </div>
+     </div>
         <script >
             <%if(flash.success && flash.success.length>0){%>
                 new Noty(

@@ -1,0 +1,68 @@
+
+#outer1
+{
+   
+        position:absolute;
+    
+}
+
+
+#form-data
+{   
+    height:70vh;
+    width:30vw;
+    margin-left:35%;
+    margin-top:-80vh;
+    background-color: lightgray;
+    position:relative;
+    min-width: 30vw;
+    text-align: center;
+    
+}
+#heading1{
+    
+    /* padding-left: 8rem; */
+    padding-top: 1rem;
+}
+#image1
+{
+    margin : -2rem;
+    height:100vh;
+    width:100vw;
+}
+#name
+{
+    height:7%;
+    width:70%;
+    margin-bottom: .5rem;
+}
+#email
+{
+    height:7%;
+        width:70%;
+    margin-bottom: .5rem;
+    
+}
+
+#password
+{
+    height:7%;
+        width:70%;
+    margin-bottom: .5rem;
+}
+#confirm-password
+{
+    height:7%;
+        width:70%;
+    margin-bottom: .5rem;
+}
+#submit
+{
+    height:7%;
+    width:70%;
+    margin-top: 1rem;
+    margin-bottom: .5rem; 
+     background-color: blue;
+    color:aliceblue;
+}
+
